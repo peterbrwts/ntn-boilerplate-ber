@@ -1,5 +1,5 @@
 <template>
-  <div class="main text-center flex flex-col items-center justify-center">
+  <div class="main text-center flex flex-col items-center justify-center my-32">
     <!-- <logo /> -->
     <h1 class="title">Nuxt — Tailwind — Netlify CMS</h1>
     <h2 class="subtitle">Boilerplate</h2>
@@ -12,7 +12,7 @@
       <nuxt-link
         :to="`blog/${blogPost.slug}`"
         class="article article--clickable"
-      >
+    >
         <div class="flex justify-between align-baseline">
           <h3 class="article-title">{{ blogPost.title }}</h3>
           <h6
