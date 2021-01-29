@@ -4,6 +4,28 @@
 
 **[Live Demo](https://ntn-boilerplate-ber.netlify.app/)**
 
+## ✨ Quick start
+
+1.  **Clone this repository.**
+
+    ```sh
+    git clone https://github.com/peterbrwts/ntn-boilerplate-ber.git
+    ```
+
+2.  **Start developing.**
+
+    Navigate into your new site’s directory and start it up.
+
+    ```sh
+    cd ntn-boilerplate-ber/
+    npm install
+    npm run dev
+    ```
+
+3.  **Running!**
+
+    Your site is now running at `http://localhost:3000`!
+
 An opinionated starter template for a quick start with the following technologies up on a site after only 5 minutes!
 
 ## 🔋 Batteries included
