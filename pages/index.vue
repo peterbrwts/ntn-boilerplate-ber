@@ -4,6 +4,7 @@
     <h1 class="title">Nuxt — Tailwind — Netlify CMS</h1>
     <h2 class="subtitle">Boilerplate</h2>
     <h1 class="title text-left">Blog</h1>
+    <p> test</p>
     <ul
       v-for="(blogPost, index) in blogPosts"
       :key="index"
