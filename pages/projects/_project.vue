@@ -1,36 +1,43 @@
 <template>
-  <article
-    v-if="projectPost"
-    class="main article"
-  >
-    <h1 class="article-title">{{ projectPost.title }}</h1>
-    <p class="mt-4">{{ projectPost.description }}</p>
-    <img
-      class="cover-image"
-      :src="projectPost.cover"
-    >
-    <div
-      class="block mt-8 mb-4"
-      v-html="$md.render(projectPost.body)"
-    />
-    <div v-if="projectPost.gallery">
-      <img
-        v-for="image in projectPost.gallery"
-        class="image"
-        :key="image.id"
-        :src="image"
-      >
-    </div>
-  </article>
+  <main>
+    <section v-if="post">
+      <nav class="mb-8" aria-label="go back">
+        <router-back class="block" />
+      </nav>
+
+      <article>
+        <img
+          v-if="post.cover"
+          class="cover-image"
+          :src="post.cover"
+        >
+        <!-- <h6 class="inline py-1 px-2 mr-1 bg-gray text-white text-sm font-medium rounded-sm">{{ post.category }}</h6> -->
+        <h1 class="">{{ post.title }}</h1>
+        <p class="mt-1 mb-8 text-primary-600 dark:text-primary-400">{{ post.description }}</p>
+        <nuxt-content :document="post" />
+        <div v-if="post.gallery" class="nuxt-content">
+          <img
+            v-for="image in post.gallery"
+            class="image"
+            :key="image.id"
+            :src="image"
+          >
+        </div>
+      </article>
+    </section>
+  </main>
 </template>
+
 <script>
 export default {
-  async asyncData({ params, payload }) {
-    if (payload) return { projectPost: payload }
-    else
-      return {
-        projectPost: await require(`~/assets/content/projects/${params.project}.json`)
-      }
-  }
+  async asyncData({ $content, params, error }) {
+    let post;
+    try {
+      post = await $content("projects", params.project).fetch();
+    } catch (e) {
+      error({ message: "Project not found" });
+    }
+    return { post };
+  },
 }
 </script>

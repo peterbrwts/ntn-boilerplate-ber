@@ -1,19 +1,7 @@
 <template>
-  <div class="container">
+  <div class="wrapper">
     <Header />
-    <ColorModePicker />
     <nuxt />
+    <ColorModePicker />
   </div>
 </template>
-
-<script>
-import Header from '~/components/general/Header.vue'
-import ColorModePicker from '~/components/general/ColorModePicker.vue'
-
-export default {
-  components: {
-    Header,
-    ColorModePicker
-  }
-}
-</script>

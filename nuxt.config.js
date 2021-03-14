@@ -1,21 +1,17 @@
-import glob from 'glob'
 import path from 'path'
 import postcssImport from 'postcss-import'
 import postcssNesting from 'postcss-nesting'
 import postcssPresetEnv from 'postcss-preset-env'
-import * as SITE_INFO from './assets/content/site/info.json'
+import postcssEasingGradients from 'postcss-easing-gradients'
+import * as SITE_INFO from './content/site/info.json'
 import { COLOR_MODE_FALLBACK } from './utils/globals.js'
 
-const dynamicContentPath = 'assets/content' // ? No prepending/appending backslashes here
-const dynamicRoutes = getDynamicPaths(
-  {
-    blog: 'blog/*.json',
-    projects: 'projects/*.json'
-  },
-  dynamicContentPath
-)
-
 export default {
+  target: 'static',
+  components: true,
+  generate: {
+    fallback: true
+  },
   // ? The env Property: https://nuxtjs.org/api/configuration-env/
   env: {
     url:
@@ -40,28 +36,42 @@ export default {
     ],
     link: [
       {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: true
+      },
+      {
+        rel: 'preload',
+        as: 'style',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap'
+      },
+      {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400&display=swap'
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap',
+        media: 'print',
+        onload: `this.media='all'`
       }
-    ] // ? Imports the font 'Karla' and is optimized by the netlify plugin 'Subfont'
-  },
-  generate: {
-    routes: dynamicRoutes,
-    fallback: true,
-    subFolders: false
+    ], // ? Imports the font 'Inter', can be optimized by the netlify plugin 'Subfont' by uncommenting it in `netlify.toml`
+    noscript: [
+      {
+        innerHTML:
+          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">'
+      }
+    ],
+    __dangerouslyDisableSanitizers: ['noscript']
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#f3f5f4' },
+  loading: { color: '#526488' },
   /*
    ** Global CSS
    */
-  css: ['@/assets/css/tailwind.css', '@/assets/css/main.pcss'],
+  css: ['@/assets/css/main.pcss'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/vue-content-placeholders.js'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -69,10 +79,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/markdownit', 'nuxt-purgecss'],
-  markdownit: {
-    injected: true
-  },
+  modules: ['@nuxt/content', 'nuxt-purgecss'],
   /*
    ** Build configuration
    */
@@ -88,7 +95,8 @@ export default {
           features: {
             'nesting-rules': false
           }
-        })
+        }),
+        'postcss-easing-gradients': postcssEasingGradients
       }
     },
     /*
@@ -99,14 +107,20 @@ export default {
   /*
    ** Custom additions configuration
    */
+  // ? The content property: https://content.nuxtjs.org/configuration
+  content: {
+    dir: 'content'
+  },
   tailwindcss: {
-    cssPath: '~/assets/css/tailwind.css',
+    cssPath: '~/assets/css/main.pcss',
     exposeConfig: false // enables `import { theme } from '~tailwind.config'`
   },
   purgeCSS: {
     mode: 'postcss',
+    // ? Whitelisting docs: https://v1.purgecss.com/whitelisting
     whitelist: ['dark-mode', 'light-mode', 'btn', 'icon', 'main'],
-    whitelistPatterns: [/^article/, /image$/]
+    whitelistPatterns: [/^card/, /^nuxt-content/, /image$/, /title$/],
+    whitelistPatternsChildren: [/^nuxt-content/, /code/, /pre/, /token/, /^vue-content-placeholders/]
   },
   colorMode: {
     preference: 'system', // default value of $colorMode.preference
@@ -128,35 +142,7 @@ export default {
       name: SITE_INFO.sitename || process.env.npm_package_name || '',
       lang: process.env.lang,
       ogHost: process.env.URL,
-      ogImage: '/ogp.jpg'
+      ogImage: '/preview.jpg'
     }
   }
-}
-
-/**
- * Create an array of URLs from a list of files
- * @param {*} urlFilepathTable - example below
- * {
- *   blog: 'blog/*.json',
- *   projects: 'projects/*.json'
- * }
- *
- * @return {Array} - Will return those files into urls for SSR generated .html's like
- * [
- *   /blog/2019-08-27-incidunt-laborum-e ,
- *   /projects/story-test-story-1
- * ]
- */
-function getDynamicPaths(urlFilepathTable, cwdPath) {
-  console.log('Going to generate dynamicRoutes for these collection types: ', urlFilepathTable)
-  const dynamicPaths = [].concat(
-    ...Object.keys(urlFilepathTable).map(url => {
-      const filepathGlob = urlFilepathTable[url]
-      return glob.sync(filepathGlob, { cwd: cwdPath }).map(filepath => {
-        return `/${url}/${path.basename(filepath, '.json')}`
-      })
-    })
-  )
-  console.log('Found these dynamicPaths that will be SSR generated:', dynamicPaths)
-  return dynamicPaths
 }
