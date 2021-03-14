@@ -1,56 +1,13 @@
 <template>
-  <div class="main text-center flex flex-col items-center justify-center my-32">
-    <!-- <logo /> -->
-    <h1 class="title">Nuxt — Tailwind — Netlify CMS</h1>
-    <h2 class="subtitle">Boilerplate</h2>
-    <h1 class="title text-left">Blog</h1>
-    <p> test</p>
-    <ul
-      v-for="(blogPost, index) in blogPosts"
-      :key="index"
-      class="articles"
-    >
-      <nuxt-link
-        :to="`blog/${blogPost.slug}`"
-        class="article article--clickable"
-    >
-        <div class="flex justify-between align-baseline">
-          <h3 class="article-title">{{ blogPost.title }}</h3>
-          <h6
-            v-if="blogPost.date"
-            class="inline-block py-1 px-2 bg-accent text-white font-medium rounded-sm dark:bg-accent whitespace-no-wrap"
-          >{{ formatDate(blogPost.date) }}</h6>
-        </div>
-        <div class="mt-4 mb-2">
-          <p class="inline">{{ blogPost.description }}</p>
-        </div>
-      </nuxt-link>
-    </ul>
-  </div>
+  <main>
+    <section class="self-center flex flex-col flex-1 items-center justify-center">
+      <h1 class="title text-center">Nuxt — Tailwind — Netlify CMS</h1>
+      <h2 class="subtitle text-center">Boilerplate Berwouts</h2>
+    </section>
+
+    <section class="mt-8">
+      <h3 class="text-primary-600 dark:text-primary-400 max-w-5xl mx-auto">Latest blog post</h3>
+      <posts post-type="blog" :amount="2" />
+    </section>
+  </main>
 </template>
-
-<script>
-// import Logo from '~/components/Logo.vue'
-
-export default {
-  // components: {
-  //   Logo
-  // },
-  head() {
-    return {
-      script: [{ src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }]
-    }
-  },
-   computed: {
-    blogPosts() {
-      return this.$store.state.blogPosts
-    }
-  },
-  methods: {
-    formatDate(dateString) {
-      const date = new Date(dateString)
-      return date.toLocaleDateString(process.env.lang) || ''
-    }
-  }
-}
-</script>
