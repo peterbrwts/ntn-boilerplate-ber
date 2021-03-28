@@ -1,103 +1,117 @@
 <template>
-  <nav class="scrim-bg fixed z-40 top-0 inset-x-0 pt-3 px-3" aria-label="Main Menu">
-    <nav class="mx-auto flex flex-wrap justify-between items-center py-8">
-        <div>
-          <nuxt-link v-if="theme === 'theme-light'" to="/">LOGO</nuxt-link>
-          <nuxt-link v-else to="/">LOGO</nuxt-link>
-        </div>
-        <div class="block lg:hidden">
-          <button @click="toggle" class="flex items-center px-3 py-2 border rounded border-gray-500 hover:text-gray-600 hover:border-gray-600">
-            <svg class="current-color h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" fill="gray" /></svg>
-          </button>
-        </div>
-        <ul
-          class="uppercase tracking-wide font-bold w-full block flex-grow lg:space-x-8 space-y-6 lg:space-y-0 lg:flex lg:flex-initial lg:w-auto items-center mt-8 lg:mt-0"
-          :class="isOpen ? 'block': 'hidden'"
+  <nav :class="headerClassList" class="fixed w-full z-30 top-0">
+    <div
+      class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2"
+    >
+      <div class="pl-4 flex items-center">
+        <logo :isStickable="true" :isSticky="isSticky" />
+      </div>
+      <div class="block lg:hidden pr-4">
+        <button
+          class="flex items-center p-1 text-orange-800 hover:text-gray-900"
+          @click.prevent.stop="onToggleClick"
         >
-          <li class="mb-6 lg:mb-0">
-            <!-- <search-input /> -->
+          <svg
+            class="fill-current h-6 w-6"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        :class="navContentClassList"
+        class="w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
+      >
+        <ul class="list-reset lg:flex justify-end flex-1 items-center">
+          <li class="mr-3">
+            <a
+              class="inline-block py-2 px-4 text-black font-bold no-underline"
+              href="#"
+              >Active</a
+            >
           </li>
-          <li>
-            <a v-if="$route.path === '/'" href="/#projects" v-scroll-to="'#projects'" class="text-copy-primary hover:text-gray-600">Link</a>
-            <nuxt-link v-else to="/#projects" v-scroll-to="'/#projects'" class="text-copy-primary hover:text-gray-600">Link</nuxt-link>
+          <li class="mr-3">
+            <a
+              class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+              href="#"
+              >link</a
+            >
           </li>
-          <li>
-            <a v-if="$route.path === '/'" href="/#about" v-scroll-to="'#about'" class="text-copy-primary hover:text-gray-600">Link</a>
-            <nuxt-link v-else to="/#about" v-scroll-to="'/#about'" class="text-copy-primary hover:text-gray-600">Link</nuxt-link>
-          </li>
-          <li>
-            <a v-if="$route.path === '/'" href="/#contact" v-scroll-to="'#contact'" class="text-copy-primary hover:text-gray-600">Link</a>
-            <nuxt-link v-else to="/#contact" v-scroll-to="'/#contact'" class="text-copy-primary hover:text-gray-600">Link</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/blog" class="text-copy-primary hover:text-gray-600">Link</nuxt-link>
-            <!-- <g-link to="/blog" class="text-copy-primary hover:text-gray-600">Blog</g-link> -->
+          <li class="mr-3">
+            <a
+              class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+              href="#"
+              >link</a
+            >
           </li>
         </ul>
-      </nav>
+        <button
+          :class="navActionClassList"
+          class="mx-auto lg:mx-0 hover:underline font-bold  mt-4 lg:mt-0 py-4 px-8 shadow opacity-75"
+        >
+          Action
+        </button>
+      </div>
+    </div>
+    <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
   </nav>
 </template>
 
 <script>
+import Logo from '~/components/global/Logo'
+
 export default {
   name: 'Header',
+  components: {
+    logo: Logo
+  },
   data() {
     return {
-      isOpen: false,
-      theme: '',
+      scrollY: 0,
+      isOpen: false
+    }
+  },
+  computed: {
+    isSticky() {
+      return this.scrollY > 10
+    },
+    headerClassList() {
+      return this.isSticky ? 'bg-white shadow' : ''
+    },
+    navActionClassList() {
+      return this.isSticky ? 'gradient text-white' : 'bg-white text-gray-800'
+    },
+    navContentClassList() {
+      let classList = this.isSticky ? 'bg-white' : 'bg-gray-100'
+      if (!this.isOpen) {
+        classList += ` hidden`
+      }
+      return classList
     }
   },
   methods: {
-    toggle() {
-      this.isOpen = !this.isOpen
+    onClick() {
+      this.isOpen = false
     },
-    updateTheme(theme) {
-      this.theme = theme
+    onScroll() {
+      this.scrollY = window.scrollY
+    },
+    onToggleClick() {
+      this.isOpen = !this.isOpen
     }
+  },
+  mounted() {
+    this.scrollY = window.scrollY
+    document.addEventListener('click', this.onClick)
+    document.addEventListener('scroll', this.onScroll)
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.onClick, true)
+    document.removeEventListener('scroll', this.onScroll, true)
   }
 }
 </script>
-
-<style lang="postcss" scoped>
-.scrim-bg {
-  &::before {
-    content: '';
-    z-index: -1;
-    background-color: var(--bg);
-    @apply absolute bottom-0 inset-x-0 h-12 mb-4 transition-colors duration-200 ease-in-out;
-  }
-  &::after {
-    content: '';
-    z-index: -1;
-    opacity: 1;
-    animation: fadeIn1 500ms ease-in-out;
-    @apply pointer-events-none absolute bottom-0 inset-x-0 h-16 -mb-12;
-    background: linear-gradient(to bottom, #111827, cubic-bezier(0.15, 0, 0.45, 1), transparent);
-  }
-}
-.nuxt-link-exact-active {
-  @apply text-gray-200 border-gray-400 bg-gray-800 bg-opacity-25 cursor-default;
-}
-
-.light-mode {
-  & .scrim-bg {
-    &::after {
-      animation-name: fadeIn2;
-      background: linear-gradient(to bottom, #e5e7eb, cubic-bezier(0.15, 0, 0.45, 1), transparent);
-    }
-  }
-  & .nuxt-link-exact-active {
-    @apply text-primary-700 border-gray-600 bg-gray-100;
-  }
-}
-
-/* Need two because of smoother switching between color modes */
-@keyframes fadeIn1 {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes fadeIn2 {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-</style>
