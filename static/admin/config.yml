@@ -2,7 +2,7 @@ site_url: https://ntn-boilerplate-ber.netlify.app/
 
 publish_mode: editorial_workflow
 backend:
-  name: git-gateway
+  name: github
   branch: master
   squash_merges: true
 
