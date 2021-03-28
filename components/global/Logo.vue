@@ -2,7 +2,7 @@
   <a
     :class="classList"
     class="no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-    href="#"
+    href="/"
   >
     <!--Icon from: http://www.potlabicons.com/ -->
     NTN
