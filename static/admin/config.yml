@@ -3,6 +3,7 @@ site_url: https://ntn-boilerplate-ber.netlify.app/
 publish_mode: editorial_workflow
 backend:
   name: github
+  repo: peterbrwts/ntn-boilerplate
   branch: master
   squash_merges: true
 
