@@ -53,7 +53,7 @@
           :class="navActionClassList"
           class="mx-auto lg:mx-0 hover:underline font-bold  mt-4 lg:mt-0 py-4 px-8 shadow opacity-75"
         >
-          Contact
+          
         </button>
       </div>
     </div>

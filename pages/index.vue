@@ -11,3 +11,12 @@
     </section>
   </main>
 </template>
+<script>
+import Hero from 'components/main/hero'
+
+export default {
+  components: {
+    Hero,
+  },
+}
+</script>
