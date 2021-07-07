@@ -76,7 +76,33 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxt/content', 'nuxt-purgecss'],
+  modules: ['@nuxt/content', 'nuxt-purgecss',
+    [
+      '@/modules/nuxt-cookie-control',
+      {
+        css: false, // not needed when functional
+        cssPolyfill: false, // same
+        colors: false, // same
+        locales: ['de'],
+        blockIframe: false,
+        controlButton: false,
+      },
+    ],
+    '@nuxtjs/robots', '@nuxtjs/sitemap'
+  ],
+  sitemap: {
+    // options
+    hostname: 'https://boilerplate.berwouts.be',
+    gzip: true,
+    exclude: [
+      '/admin/**'
+    ],
+  },
+  robots: {
+    /* module options */
+    UserAgent: '*',
+    Disallow: '/admin'
+  },
   /*
    ** Build configuration
    */

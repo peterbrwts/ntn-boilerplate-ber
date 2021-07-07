@@ -16,7 +16,11 @@
   "license": "MIT",
   "dependencies": {
     "@nuxt/content": "^1.14.0",
-    "nuxt": "^2.15.7"
+    "@nuxtjs/robots": "^2.5.0",
+    "@nuxtjs/sitemap": "^2.4.0",
+    "css-vars-ponyfill": "^2.4.5",
+    "nuxt": "^2.15.7",
+    "nuxt-cookie-control": "^1.9.7"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^2.0.10",
@@ -28,11 +32,13 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "netlify-cli": "^3.39.1",
+    "node-sass": "^6.0.1",
     "nuxt-purgecss": "^1.0.0",
     "postcss": "^8.3.5",
     "postcss-easing-gradients": "^3.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.3.2",
+    "sass-loader": "^10.1.1",
     "vue-content-placeholders": "^0.2.1"
   }
 }
