@@ -4,6 +4,7 @@
       <div class="pl-4 flex items-center">
         <logo :isStickable="true" :isSticky="isSticky" />
       </div>
+
       <div class="block lg:hidden pr-4">
         <button class="flex items-center p-1 text-orange-800 hover:text-gray-900" @click.prevent.stop="onToggleClick">
           <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -15,7 +16,22 @@
 
       <div
         :class="navContentClassList"
-        class="w-full flex-grow lg:flex lg:items-center lg:w-auto lg:block mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
+        class="
+          w-full
+          flex-grow
+          lg:flex
+          lg:items-center
+          lg:w-auto
+          lg:block
+          mt-2
+          lg:mt-0
+          bg-white
+          lg:bg-transparent
+          text-black
+          p-4
+          lg:p-0
+          z-20
+        "
       >
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
           <li class="mr-3">

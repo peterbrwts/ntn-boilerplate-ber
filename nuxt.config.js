@@ -88,7 +88,42 @@ export default {
         controlButton: false,
       },
     ],
-    '@nuxtjs/robots', '@nuxtjs/sitemap'
+    '@nuxtjs/robots', '@nuxtjs/sitemap',
+    [
+      'nuxt-i18n',
+      {
+        locales: [
+          {
+            code: 'nl',
+            iso: 'nl-BE',
+            name: 'Nederlands',
+          },
+          {
+            code: 'en',
+            iso: 'en-US',
+            name: 'English',
+          },
+
+          {
+            code: 'fr',
+            iso: 'fr-FR',
+            name: 'Français',
+          },
+        ],
+
+        defaultLocale: 'nl',
+        strategy: 'prefix',
+        noPrefixDefaultLocale: true,
+        vueI18n: {
+          fallbackLocale: 'nl',
+          messages: {
+            en: require('./locales/en-us.json'),
+            nl: require('./locales/nl-be.json'),
+            fr: require('./locales/fr-fr.json'),
+          },
+        },
+      }
+    ],
   ],
   sitemap: {
     // options
