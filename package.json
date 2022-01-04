@@ -37,7 +37,7 @@
     "netlify-cli": "^8.6.4",
     "node-sass": "^7.0.1",
     "nuxt-purgecss": "^0.2.1",
-    "postcss": "^7.0.39",
+    "postcss": "^8.4.5",
     "postcss-easing-gradients": "^3.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.4.1",
