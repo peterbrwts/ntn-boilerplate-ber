@@ -9,7 +9,7 @@
 1.  **Clone this repository.**
 
     ```sh
-    git clone https://github.com/peterbrwts/ntn-boilerplate.git new-project
+    git clone https://github.com/peterbrwts/ntn-boilerplate-ber.git new-project
     ```
 
 2.  **Start developing.**
