@@ -20,7 +20,7 @@
     "@nuxtjs/robots": "^2.5.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "css-vars-ponyfill": "^2.4.7",
-    "i18n": "^0.14.2",
+    "i18n": "^0.15.0",
     "nuxt": "^2.13.3",
     "nuxt-cookie-control": "^1.9.7",
     "nuxt-i18n": "^6.28.1"
