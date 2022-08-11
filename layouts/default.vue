@@ -2,7 +2,7 @@
   <div class="wrapper">
     <Header />
     <nuxt />
-    <ColorModePicker />
+    
     <cookie-control />
   </div>
 </template>
