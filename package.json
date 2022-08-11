@@ -1,6 +1,6 @@
 {
   "name": "ntn-boilerplate-BER",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Nuxt-Tailwind-NetlifyCMS boilerplate",
   "author": "Sven Parker <sven@svenparker.com> (https://svenparker.com)",
   "scripts": {
